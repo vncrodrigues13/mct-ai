@@ -1,0 +1,24 @@
+#import openai
+# #cin account
+# openai.api_key="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"
+
+# @app.route('/')
+# def home():
+#     return 'Flask Api'
+
+# @app.route('/prompt', methods=['GET'])
+# def processPrompt():
+#     prompt : str = request.args.get('prompt', '')
+#     completion = openai.chat.completions.create(
+#         model="gpt-4o-mini",
+#         store=True,
+#         messages=[
+#             {"role": "user", "content": "write a haiku about ai"}
+#         ]
+#     )
+
+#     print(completion)
+
+#     return completion.choices[0].to_json()
+
+
