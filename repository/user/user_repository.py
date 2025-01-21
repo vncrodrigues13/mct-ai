@@ -15,7 +15,6 @@ class UserRepository(IUserServices):
     
     def get_users(self) -> List[User]:
         users = User.objects()
-        print(users)
         return users
 
     def get_user_by_id(self, userId : str) -> User:

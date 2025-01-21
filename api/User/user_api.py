@@ -11,7 +11,8 @@ services = UserServices.get_instance()
 @bluePrint.get('/')
 @jwt_required()
 def get_users():
-    users = UserServices.get_instance().get_users()
+    users = UserServices().get_users()
+    # users = UserServices.get_instance().
     users_dict = [user.to_dict() for user in users]
     return jsonify(users_dict)
 

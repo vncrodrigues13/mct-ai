@@ -5,6 +5,7 @@ from flask_jwt_extended import (
     JWTManager, create_access_token, jwt_required, get_jwt_identity
 )
 import datetime
+import os
 from api.User import user_api
 
 app = Flask(__name__)
@@ -15,25 +16,19 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(hours=1)
 
 jwt = JWTManager(app)
 
+db_name = os.getenv('DB_NAME')
+db_host = os.getenv('DB_HOST')
+db_port = int(os.getenv('DB_PORT'))
+db_user = os.getenv('DB_USER')
+db_password = os.getenv('DB_PASSWORD')
 
-connect(db='banco', host='localhost', port=27017, username='admin', password='asd')
+connect(db=db_name, host=db_host, port=db_port, username=db_user, password=db_password, serverSelectionTimeoutMS=5000, connectTimeoutMS=5000)
 
 
 users = {
     'vinicius': 'rodrigues',
     'asd': 'dsa'
 }
-
-
-@app.route('/print')
-@jwt_required()
-def test():
-    superhero = {
-        'name': 'Nick',
-        'lastName': 'Fury'
-    }
-    return superhero
-
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -49,11 +44,13 @@ def login():
         return jsonify({"msg": "Credenciais inválidas"}), 401
 
 
-
+@app.get('/')
+def home():
+    return jsonify({'message': 'Hello Server'})
 
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0',debug=True)
     print('Server running ')
     

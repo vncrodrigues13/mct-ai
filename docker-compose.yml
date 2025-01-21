@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.3"
 
 services:
   mongodb:
@@ -11,7 +11,36 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: asd
     volumes:
       - mongodb_data:/data/db
+    networks:
+      - app-network
+
+  python-app:
+    image: python-app
+    build: 
+      context: .
+    container_name: python-app
+    depends_on:
+      - mongodb
+    ports:
+      - "5000:5000"   # Expose the application on port 5000
+    volumes:
+      - ./:/app        # Mount the current directory to /app in the container
+    environment:
+      - FLASK_ENV=development
+      - DB_NAME='mct'
+      - DB_HOST=mongodb
+      - DB_PORT=27017
+      - DB_USER=admin
+      - DB_PASSWORD=asd
+    command:
+      python /app/app.py
+    networks:
+      - app-network
 
 volumes:
   mongodb_data:
     driver: local
+
+networks:
+  app-network:
+    driver: bridge
