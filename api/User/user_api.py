@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, jsonify, request
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from services.user.user_services import  UserServices
 
@@ -18,9 +18,15 @@ def get_users():
 
 
 @bluePrint.post('/')
-@jwt_required()
-def save_user():
+def create_user():
     userJson = request.get_json()
-    print(userJson)
     user = UserServices.get_instance().save_user(userJson)
+    return jsonify(user.to_dict())
+
+
+@bluePrint.put('/')
+@jwt_required()
+def update_user():
+    userJson = request.get_json()
+    user = UserServices.get_instance().update_user(userJson)
     return jsonify(user.to_dict())
