@@ -3,6 +3,7 @@ from flask import Flask, jsonify
 from flask_jwt_extended import JWTManager
 from infra.db.setup import start_connection as start_db_connection
 from api.routes import routes
+import os
 
 start_db_connection()
 datetime.timezone(datetime.timedelta(hours=-3))
@@ -27,7 +28,7 @@ def home():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',debug=True)
+    app.run(host=os.getenv('APP_HOST'),debug=True)
     print('Server running ')
     
     
