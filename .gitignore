@@ -170,4 +170,7 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-*/__pycache__/*.pyc
+*__pycache__/
+.idea/
+.pytest_cache/
+*.pyc

@@ -8,10 +8,8 @@ class UserRepository(IUserServices):
     
     instance = None
     
-    def save_user(self, user : dict) -> User:
-        
-        user_obj = User(firstName = user["firstName"], lastName = user["lastName"], password = user["password"])
-        return user_obj.save()
+    def save_user(self, user : User) -> User:
+        return user.save()
     
     def get_users(self) -> List[User]:
         users = User.objects()
@@ -19,6 +17,9 @@ class UserRepository(IUserServices):
 
     def get_user_by_id(self, userId : str) -> User:
         return User.objects(uuid=userId).first()
+    
+    def get_user_by_username(self, username : str) -> User:
+        return User.objects(username=username).first()
 
     @classmethod
     def get_instance(cls):

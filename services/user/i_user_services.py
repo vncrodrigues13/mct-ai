@@ -13,7 +13,11 @@ class IUserServices(ABC):
         pass
 
     @abstractmethod
-    def get_user_by_id(self, userId : int) -> User:
+    def get_user_by_username(self, username : str) -> User:
+        pass
+
+    @abstractmethod
+    def get_user_by_id(self, userId : str) -> User:
         pass
 
     
