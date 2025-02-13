@@ -4,6 +4,7 @@ from flask_jwt_extended import JWTManager
 from infra.db.setup import start_connection as start_db_connection
 from api.routes import routes
 import os
+import debugpy
 
 start_db_connection()
 datetime.timezone(datetime.timedelta(hours=-3))
@@ -27,6 +28,7 @@ def home():
 
 if __name__ == '__main__':
     app.run(host=os.getenv('APP_HOST'),debug=True)
+    debugpy.listen((os.getenv('APP_HOST'), 5678))
     print('Server running ')
     
     

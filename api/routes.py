@@ -22,7 +22,8 @@ def login():
     
     hashed_password = userObject.password
     passwordInputed = data.get('password')
-    user_services.verify_password(hashed_password, passwordInputed)
+    if not user_services.validate_password(hashed_password, passwordInputed):
+        return jsonify({"msg": "Senha inválida"}), 401
     
     access_token = create_access_token(identity=username)
     response = jsonify({"msg": "Login sucessfull", "access_token": access_token})

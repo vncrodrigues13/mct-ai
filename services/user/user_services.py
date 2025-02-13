@@ -29,12 +29,10 @@ class UserServices(IUserServices):
     def get_user_by_id(self, userId : str) -> User:
         return self.userRepository.get_user_by_id(userId)
 
-
-    def verify_password(self, stored_hash, password):
-        print('stored' ,stored_hash) 
-        print('password', password) 
-        if crypt.crypt(password, stored_hash) == stored_hash:
-            raise Exception("Credenciais inválidas")
+       
+    def validate_password(self, stored_hash, input_password):
+        new_hash = crypt.crypt(input_password, stored_hash)
+        return new_hash == stored_hash
         
 
     @classmethod
