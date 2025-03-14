@@ -1,5 +1,4 @@
 flask
-openai
 flask-jwt-extended
 pytest
 mongoengine
