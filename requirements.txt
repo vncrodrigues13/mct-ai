@@ -3,4 +3,3 @@ flask-jwt-extended
 pytest
 mongoengine
 pymongo
-debugpy

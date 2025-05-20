@@ -31,4 +31,3 @@ if __name__ == '__main__':
     debugpy.listen((os.getenv('APP_HOST'), 5678))
     print('Server running ')
     
-    

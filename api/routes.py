@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_jwt_extended import create_access_token, set_access_cookies, jwt_required, unset_access_cookies, get_jwt_identity
 from api.User import user_api
 from services.user.user_services import UserServices
+from infra.generativeai.gemini.setup import model
 
 users = {'vinicius': 'rodrigues','asd': 'dsa'}
 
@@ -29,6 +30,17 @@ def login():
     response = jsonify({"msg": "Login sucessfull", "access_token": access_token})
     set_access_cookies(response, access_token)
     return response, 200
+
+
+@routes.post('/prompt')
+def prompt():
+    data = request.get_json()
+    prompt = data.prompt
+    text = model.models.generate_content("Explain how AI works")
+    print(text)
+    response = jsonify(text)
+    return response, 200
+
     
     
 
